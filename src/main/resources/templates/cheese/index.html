@@ -14,15 +14,15 @@
 <table class="table">
 
     <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Type</th>
+        <th>Le nom</th>
+        <th>La description</th>
+        <th>Genre</th>
     </tr>
 
     <tr th:each="cheese : ${cheeses}">
         <td th:text="${cheese.name}"></td>
         <td th:text="${cheese.description}"></td>
-        <td th:text="${cheese.type.name}"></td>
+        <td th:text="${cheese.category}"></td>
     </tr>
 
 </table>

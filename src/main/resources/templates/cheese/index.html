@@ -7,22 +7,23 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<br />
 
-<p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
+<p th:unless="${cheeses} and ${cheeses.size()}">Pas de fromage :(</p>
 
 
 <table class="table">
 
     <tr>
-        <th>Le nom</th>
-        <th>La description</th>
-        <th>Genre</th>
+        <th>Nom du fromage</th>
+        <th>Description du fromage</th>
+        <th>Classement du fromage</th>
     </tr>
 
     <tr th:each="cheese : ${cheeses}">
         <td th:text="${cheese.name}"></td>
         <td th:text="${cheese.description}"></td>
-        <td th:text="${cheese.category}"></td>
+        <td th:text="${cheese.category.name}"></td>
     </tr>
 
 </table>

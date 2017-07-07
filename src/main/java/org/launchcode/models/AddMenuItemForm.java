@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by lisette on 5/7/17.
  */
-public class AddMenuItem {
+public class AddMenuItemForm {
 
     private Menu menu;
 
@@ -20,9 +20,9 @@ public class AddMenuItem {
     private int cheeseId;
 
 
-    public AddMenuItem() {}
+    public AddMenuItemForm() {}
 
-    public AddMenuItem(Menu menu, Iterable<Cheese> cheeses) {
+    public AddMenuItemForm(Menu menu, Iterable<Cheese> cheeses) {
         this.menu = menu;
         this.cheeses = cheeses;
     }

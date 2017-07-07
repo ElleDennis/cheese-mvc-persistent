@@ -11,16 +11,19 @@ import java.util.List;
  */
 @Entity
 public class Category {
+
     @Id
     @GeneratedValue
     private int id;
 
     @NotNull
-    @Size
+    @Size(min=3, max=10)
     private String name;
 
-    void Category() {
+    public Category() {}
 
+    public Category(String name) {
+         this.name = name;
     }
 
     @OneToMany
@@ -30,7 +33,12 @@ public class Category {
     public int getId() { return id; }
 
     public String getName() { return name; }
-    public void setName() { this.name = name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public List<Cheese> getCheeses() {
+        return cheeses;
+    }
 
 
 }

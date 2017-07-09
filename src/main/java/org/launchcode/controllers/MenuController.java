@@ -84,7 +84,8 @@ public class MenuController {
         AddMenuItemForm form = new AddMenuItemForm(menu, cheeses);
 
         model.addAttribute("menuId", menuDao.findOne(menuId));
-        model.addAttribute("form", "Ajouter une selection au menu:" + cheeseDao.findAll());
+        model.addAttribute("title", "Ajouter au menu: " + menu.getName());
+        model.addAttribute("form", form);
         return "menu/add-item";
     }
 
@@ -98,19 +99,19 @@ public class MenuController {
         menuDao.save(menu);
         return "redirect:view/" + menu.getId();
     }
-    public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm newAddMenuItemForm, Errors errors, int menuId, int cheeseId) {
+    public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm newAddMenuItemForm, Errors errors) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Creer un menu");
             return "menu/add";
         }
-
-        Cheese newCheese = cheeseDao.findOne(cheeseId);
+        int menuId = newAddMenuItemForm.getMenuId();
+        int cheeseId = newAddMenuItemForm.getCheeseId();
         Menu theMenu = menuDao.findOne(menuId);
-
+        Cheese newCheese = cheeseDao.findOne(cheeseId);
+        theMenu.addItem(newCheese);
         menuDao.save(theMenu);
         return "menu/index";
-
 
     }
 }

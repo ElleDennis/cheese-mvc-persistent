@@ -52,6 +52,7 @@ public class CheeseController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Ajouter un fromage");
+            model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
 
@@ -74,7 +75,6 @@ public class CheeseController {
         for (int cheeseId : cheeseIds) {
             cheeseDao.delete(cheeseId);
         }
-
         return "redirect:";
     }
 

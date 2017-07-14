@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -37,7 +34,6 @@ public class MenuController {
     private String index(Model model) {
         model.addAttribute("menus", menuDao.findAll());
         model.addAttribute("title", "Les menus");
-
         return "menu/index";
     }
 
@@ -56,9 +52,6 @@ public class MenuController {
             model.addAttribute("title", "Creer un menu");
             return "menu/add";
         }
-        // Category cat = categoryDao.findOne(categoryId);
-        //newCheese.setCategory(cat);
-
         menuDao.save(menu);
         return "redirect:view/" + menu.getId();
     }
@@ -71,7 +64,6 @@ public class MenuController {
         model.addAttribute("title", menu.getName());
         model.addAttribute("cheeses", menu.getCheeses());
         model.addAttribute("menuId", menu.getId());
-
         return "menu/view";
     }
 
@@ -83,35 +75,28 @@ public class MenuController {
 
         AddMenuItemForm form = new AddMenuItemForm(menu, cheeses);
 
-        model.addAttribute("menuId", menuDao.findOne(menuId));
-        model.addAttribute("title", "Ajouter au menu: " + menu.getName());
+        model.addAttribute("title", "Ajouter le fromage au menu: " + menu.getName());
         model.addAttribute("form", form);
         return "menu/add-item";
     }
 
-    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.POST)
-    public String addItem(Model model, @ModelAttribute @Valid Menu menu, Errors errors) {
+    @RequestMapping(value = "add-item", method = RequestMethod.POST)
+    public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm form, Errors errors) {
+
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Creer un menu");
-            return "menu/add";
+            model.addAttribute("form", form);
+            return "menu/add-item";
         }
-        menuDao.save(menu);
-        return "redirect:view/" + menu.getId();
-    }
-    public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm newAddMenuItemForm, Errors errors) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Creer un menu");
-            return "menu/add";
-        }
-        int menuId = newAddMenuItemForm.getMenuId();
-        int cheeseId = newAddMenuItemForm.getCheeseId();
+        int menuId = form.getMenuId();
+        int cheeseId = form.getCheeseId();
         Menu theMenu = menuDao.findOne(menuId);
         Cheese newCheese = cheeseDao.findOne(cheeseId);
         theMenu.addItem(newCheese);
         menuDao.save(theMenu);
-        return "menu/index";
+        return "redirect:/menu/view/" + theMenu.getId();
 
     }
 }

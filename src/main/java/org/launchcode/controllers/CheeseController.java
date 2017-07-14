@@ -34,7 +34,6 @@ public class CheeseController {
         model.addAttribute("cheeses", cheeseDao.findAll());
         // Above returns an iterable
         model.addAttribute("title", "Les Fromages");
-
         return "cheese/index";
     }
 

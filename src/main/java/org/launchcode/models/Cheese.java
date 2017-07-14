@@ -9,8 +9,7 @@ import java.util.List;
  * Created by LaunchCode
  */
 @Entity
-public class Cheese extends Menu {
-    // Not sure if the extends Menu should be included above?
+public class Cheese {
 
     @Id
     @GeneratedValue

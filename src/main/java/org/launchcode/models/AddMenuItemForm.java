@@ -27,6 +27,14 @@ public class AddMenuItemForm {
         this.cheeses = cheeses;
     }
 
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
+    }
+
+    public void setCheeseId(int cheeseId) {
+        this.cheeseId = cheeseId;
+    }
+
     public int getMenuId() {
         return menuId;
     }
